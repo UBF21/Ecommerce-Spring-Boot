@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css"
+          integrity="sha512-csw0Ma4oXCAgd/d4nTcpoEoz4nYvvnk21a8VA2h2dzhPAvjbUIK6V3si7/g/HehwdunqqW18RwCJKpD7rL67Xg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body>
+
+<nav th:replace="componentes/nav-bar :: nav_bar"></nav>
+<div class="container py-4">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5 text-center">
+            <h1 class="display-5 fw-bold">Desarrollo de Aplicaciones Web II</h1>
+            <p class="text-center fs-4">Este es un examen realizado con Spring security,thymeleaf,Spring
+                Data JPA,MySql,SpringDevTools,Spring Web,lombok,Diseño con Bootstrap 5.0.2,Hover.css 2.3.1, animate.css
+                5.14.4 .
+                y font-awesome.</p>
+        </div>
+    </div>
+
+    <!-- Vista home sin iniciar sesión-->
+    <div class="row align-items-md-stretch" sec:authorize="!hasAnyAuthority('USER','ADMIN')">
+        <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+
+                <h2>¿Que se ha realizado?</h2>
+                <p>Se hizo el desarrollo de un aplicación con dos respectivos roles (ADMIN,USER) los cuales
+                    estan asociadas con distintas funcionalidades con las que se puede interactuar con la BD de la
+                    aplicación web.</p>
+
+                <a class="btn hvr-grow btn-outline-light" th:href="@{/producto/listar}">Catálogo</a>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>¿Como se puede utilizar?</h2>
+                <p>Primero se debe realizar un inicio de sesión para habilitar las funcionalidades respectivas.
+                    En caso no se haga un inicio de sesión solo se podrá visualizar un listado de los productos sin
+                    opcion a comprar
+                    o realizar las operaciones CRUD.</p>
+                <a class="btn hvr-grow btn-outline-secondary" th:href="@{/producto/listar}">Catálogo</a>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-4">
+            <div class="h-100 p-5 bg-secondary text-white border rounded-3">
+                <h2>¿Que pasa si se quiere acceder a un recurso no permitido?</h2>
+                <p>En caso de que un usuario quiera acceder a un recurso,ruta o sección que no esta autorizado ,se le
+                    mostrará un vista que indicara que no puede ingreesar al recurso por ser prohibido para el rol en
+                    sesión.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vista home en iniciar sesión con ADMIN-->
+    <div class="row align-items-md-stretch" sec:authorize="hasAuthority('ADMIN')">
+        <div class="col-md-12">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2 class="mb-5">¿Que funciones puede realizar como ADMIN?</h2>
+
+
+                <ul class="list-group  list-group-flush">
+                    <li class="list-group-item bg-secondary text-white  text-center">Listar Productos</li>
+                    <li class="list-group-item bg-secondary text-white  text-center">Comprar Producto</li>
+                    <li class="list-group-item bg-secondary text-white  text-center">Detalle Producto</li>
+                    <li class="list-group-item bg-secondary text-white  text-center">Agregar Producto</li>
+                    <li class="list-group-item bg-secondary text-white  text-center">Actualizar Producto</li>
+                    <li class="list-group-item bg-secondary text-white text-center">Eliminar Producto</li>
+                </ul>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Vista home en iniciar sesión con USER-->
+    <div class="row align-items-md-stretch" sec:authorize="hasAuthority('USER')">
+        <div class="col-md-12">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2 class="mb-5">¿Que funciones puede realizar como USER?</h2>
+
+
+                <ul class="list-group  list-group-flush">
+                    <li class="list-group-item bg-secondary text-white  text-center">Listar Productos</li>
+                    <li class="list-group-item bg-secondary text-white  text-center">Detalle Producto</li>
+                    <li class="list-group-item bg-secondary text-white  text-center">Comprar Producto</li>
+                </ul>
+
+
+            </div>
+
+
+            <a class="btn hvr-grow btn-outline-light" th:href="@{/producto/listar}">Catálogo</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<footer th:replace="componentes/footer :: footer"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
